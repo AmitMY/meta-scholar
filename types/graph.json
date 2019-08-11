@@ -1,0 +1,8 @@
+{
+  "directed": {
+    "type": "boolean"
+  },
+  "size": {
+    "type": "range"
+  }
+}

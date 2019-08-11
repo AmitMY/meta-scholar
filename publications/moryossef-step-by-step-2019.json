@@ -1,0 +1,17 @@
+{
+  "title": "Step-by-Step: Separating Planning from Realization in Neural Data-to-Text Generation",
+  "authors": [
+    "Moryossef, Amit",
+    "Goldberg, Yoav",
+    "Dagan, Ido"
+  ],
+  "publishing": {
+    "year": 2019,
+    "title": "Proceedings of the 2019 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies, {NAACL-HLT} 2019, Minneapolis, MN, USA, June 2-7, 2019, Volume 1 (Long and Short Papers)",
+    "url": "https://aclweb.org/anthology/papers/N/N19/N19-1236/",
+    "pages": [
+      2267,
+      2277
+    ]
+  }
+}

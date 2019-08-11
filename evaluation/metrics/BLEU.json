@@ -1,0 +1,24 @@
+{
+  "title": "BLEU",
+  "description": "Performs NGRAM comparison between an hypothesis and multiple references",
+  "publication": "papineni-bleu-2002",
+  "input": {
+    "texts": {
+      "type": "list",
+      "parameters": {
+        "type": "object",
+        "parameters": {
+          "hypothesis": {
+            "type": "text"
+          },
+          "references": {
+            "type": "list",
+            "parameters": {
+              "type": "text"
+            }
+          }
+        }
+      }
+    }
+  }
+}

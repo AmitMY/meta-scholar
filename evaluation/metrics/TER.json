@@ -1,0 +1,24 @@
+{
+  "title": "Translation Error Rate",
+  "description": "Translation Error Rate is an error metric for machine translation that messures the number of edits required to change a system output into one of the references. NOTE: HTER (TER with human targeted references) requires post-editing of system output, software for which is not provided here.",
+  "publication": "snover-ter-2006",
+  "input": {
+    "texts": {
+      "type": "list",
+      "parameters": {
+        "type": "object",
+        "parameters": {
+          "hypothesis": {
+            "type": "text"
+          },
+          "references": {
+            "type": "list",
+            "parameters": {
+              "type": "text"
+            }
+          }
+        }
+      }
+    }
+  }
+}

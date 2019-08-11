@@ -1,0 +1,17 @@
+{
+  "title": "A study of translation edit rate with targeted human annotation",
+  "authors": [
+    "Snover, Matthew",
+    "Dorr, Bonnie",
+    "Schwartz, Richard",
+    "Micciulla, Linnea",
+    "Makhoul, John"
+  ],
+  "publishing": {
+    "year": 2006,
+    "title": "Proceedings of association for machine translation in the Americas",
+    "url": "http://www.mt-archive.info/AMTA-2006-Snover.pdf",
+    "volume": 200
+  }
+}
+

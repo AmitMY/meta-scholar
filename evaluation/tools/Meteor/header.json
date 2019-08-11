@@ -1,0 +1,33 @@
+{
+  "title": "Meteor",
+  "publication": "denkowski-meteor-2014",
+  "scores": [
+    "Meteor"
+  ],
+  "versions": [
+    {
+      "date": "2014",
+      "version": "1.5",
+      "url": "http://www.cs.cmu.edu/~alavie/METEOR/download/meteor-1.5.tar.gz"
+    },
+    {
+      "date": "2012-10-27",
+      "version": "1.4",
+      "url": "http://www.cs.cmu.edu/~alavie/METEOR/download/meteor-1.4.tar.gz"
+    },
+    {
+      "date": "2011",
+      "version": "1.3",
+      "url": "http://www.cs.cmu.edu/~alavie/METEOR/download/meteor-1.3.tar.gz"
+    },
+    {
+      "date": "2010",
+      "version": "1.2",
+      "url": "http://www.cs.cmu.edu/~alavie/METEOR/download/meteor-1.2.tar.gz"
+    },
+    {
+      "version": "1.0",
+      "url": "http://www.cs.cmu.edu/~alavie/METEOR/download/meteor-1.0.tgz"
+    }
+  ]
+}

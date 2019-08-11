@@ -1,0 +1,19 @@
+{
+  "title": "BLEU: a method for automatic evaluation of machine translation",
+  "authors": [
+    "Papineni, Kishore",
+    "Roukos, Salim",
+    "Ward, Todd",
+    "Zhu, Wei-Jing"
+  ],
+  "publishing": {
+    "year": 2002,
+    "title": "Proceedings of the 40th annual meeting on association for computational linguistics",
+    "url": "http://www.aclweb.org/anthology/P02-1040",
+    "pages": [
+      311,
+      318
+    ],
+    "organization": "Association for Computational Linguistics"
+  }
+}

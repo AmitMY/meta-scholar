@@ -1,0 +1,13 @@
+{
+  "title": "MultiBLEU",
+  "scores": [
+    "BLEU"
+  ],
+  "versions": [
+    {
+      "date": "2017-10-20",
+      "version": "2.1",
+      "url": "https://github.com/moses-smt/mosesdecoder/blob/master/scripts/generic/multi-bleu.perl"
+    }
+  ]
+}

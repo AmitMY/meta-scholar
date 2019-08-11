@@ -1,0 +1,16 @@
+{
+  "title": "Meteor universal: Language specific translation evaluation for any target language",
+  "authors": [
+    "Denkowski, Michael",
+    "Lavie, Alon"
+  ],
+  "publishing": {
+    "year": 2014,
+    "title": "Proceedings of the ninth workshop on statistical machine translation",
+    "url": "http://www.cs.cmu.edu/~alavie/METEOR/pdf/meteor-1.5.pdf",
+    "pages": [
+      376,
+      380
+    ]
+  }
+}

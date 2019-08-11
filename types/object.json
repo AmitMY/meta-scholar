@@ -1,0 +1,14 @@
+{
+  "category": {
+    "type": "text"
+  },
+  "polygon": {
+    "type": "list",
+    "parameters": {
+      "type": "list",
+      "parameters": {
+        "type": "number"
+      }
+    }
+  }
+}

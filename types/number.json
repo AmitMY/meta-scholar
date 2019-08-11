@@ -1,0 +1,8 @@
+{
+  "group": {
+    "type": "set",
+    "parameters": {
+      "type": "number"
+    }
+  }
+}

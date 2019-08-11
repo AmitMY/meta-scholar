@@ -1,0 +1,47 @@
+{
+  "name": "WebNLG",
+  "publication": "gardent-webnlg-2016",
+  "homepage": "http://webnlg.loria.fr/pages/challenge.html",
+  "data": {
+    "category": {
+      "type": "text"
+    },
+    "graph": {
+      "type": "graph",
+      "parameters": {
+        "size": {
+          "from": 1,
+          "to": 7
+        }
+      }
+    },
+    "texts": {
+      "type": "list",
+      "parameters": {
+        "type": "text"
+      }
+    }
+  },
+  "versions": [
+    {
+      "date": "2018",
+      "version": "2_constrained",
+      "url": "https://gitlab.com/shimorina/webnlg-dataset/tree/master/release_v2_constrained"
+    },
+    {
+      "date": "2018",
+      "version": "2",
+      "url": "https://gitlab.com/shimorina/webnlg-dataset/tree/master/release_v2"
+    },
+    {
+      "date": "2018-01-16",
+      "version": "1",
+      "url": "https://gitlab.com/shimorina/webnlg-dataset/tree/master/release_v1"
+    },
+    {
+      "date": "2017",
+      "version": "webnlg_challenge_2017",
+      "url": "https://gitlab.com/shimorina/webnlg-dataset/tree/master/webnlg_challenge_2017"
+    }
+  ]
+}

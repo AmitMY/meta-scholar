@@ -1,0 +1,39 @@
+{
+  "title": "TERCom",
+  "publication": "snover-ter-2006",
+  "scores": [
+    "TER"
+  ],
+  "versions": [
+    {
+      "date": "2008-08-19",
+      "version": "0.7.25",
+      "url": "http://www.cs.umd.edu/~snover/tercom/tercom-0.7.25.tgz"
+    },
+    {
+      "date": "2008-03-26",
+      "version": "0.7.2",
+      "url": "http://www.cs.umd.edu/~snover/tercom/tercom-0.7.2.tgz"
+    },
+    {
+      "date": "2007-03-27",
+      "version": "0.7",
+      "url": "http://www.cs.umd.edu/~snover/tercom/tercom-0.7.tgz"
+    },
+    {
+      "date": "2006-04-28",
+      "version": "Basic Java Classes",
+      "url": "http://www.cs.umd.edu/~snover/tercom/java_ter_060428.tgz"
+    },
+    {
+      "date": "2006-04-10",
+      "version": "6b",
+      "url": "http://www.cs.umd.edu/~snover/tercom/tercom_v6b.tgz"
+    },
+    {
+      "date": "2005-11-10",
+      "version": "5",
+      "url": "http://www.cs.umd.edu/~snover/tercom/tercom5.tgz"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "title": "The webnlg challenge: Generating text from dbpedia data",
+  "authors": [
+    "Gardent, Claire",
+    "Mrabet, Yassine",
+    "Narayan, Shashi",
+    "Perez-Beltrachini, Laura"
+  ],
+  "publishing": {
+    "year": 2016,
+    "title": "Proceedings of the 9th International Natural Language Generation conference",
+    "url": "http://anthology.aclweb.org/W16-6626",
+    "pages": [
+      163,
+      167
+    ]
+  }
+}

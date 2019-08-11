@@ -1,0 +1,8 @@
+{
+  "from": {
+    "type": "number"
+  },
+  "to": {
+    "type": "number"
+  }
+}

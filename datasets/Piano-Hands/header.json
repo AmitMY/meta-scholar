@@ -1,0 +1,32 @@
+{
+  "name": "Piano-Hands",
+  "descriptions": "Object tagging of right and left hands on a piano background",
+  "data": {
+    "image": {
+      "type": "file",
+      "parameters": {
+        "type": "image",
+        "extension": "jpg"
+      }
+    },
+    "annotation": {
+      "type": "file",
+      "parameters": {
+        "extension": "xml"
+      }
+    },
+    "objects": {
+      "type": "list",
+      "parameters": {
+        "type": "object"
+      }
+    }
+  },
+  "versions": [
+    {
+      "date": "2019-08-11",
+      "version": "1",
+      "url": "https://github.com/AmitMY/piano-hands/tree/master/versions/1"
+    }
+  ]
+}
