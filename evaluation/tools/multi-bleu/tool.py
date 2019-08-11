@@ -45,7 +45,7 @@ def eval(texts, version="2.1"):
     hypothesis = list(map(unicode.lower, map(unicode, hypothesis)))
     hyp_path = save_temp(hypothesis)
 
-    cmd = v_file_name + " " + " ".join(ref_path) + " < " + hyp_path
+    cmd = v_file_name + " " + " ".join(ref_paths) + " < " + hyp_path
     res = os.popen(cmd).read()
 
     search = re.search(" (\d*[\.\d]*?), (\d*[\.\d]*?)\/(\d*[\.\d]*?)\/(\d*[\.\d]*?)\/(\d*[\.\d]*?) ", str(res))
@@ -60,4 +60,4 @@ def eval(texts, version="2.1"):
 
 if __name__ == "__main__":
     sen = "A small, sample sentence"
-    print(BLEU([{"hypothesis": sen, "references": [sen]}]))
+    print(eval([{"hypothesis": sen, "references": [sen]}]))
