@@ -18,15 +18,23 @@
     "objects": {
       "type": "list",
       "parameters": {
-        "type": "object"
+        "type": "object",
+        "parameters": {
+          "category": {
+            "type": "text"
+          },
+          "polygon": {
+            "type": "polygon"
+          }
+        }
       }
     }
   },
   "versions": [
     {
       "date": "2019-08-11",
-      "version": "1",
-      "url": "https://github.com/AmitMY/piano-hands/tree/master/versions/1"
+      "version": "1.0",
+      "url": "https://github.com/AmitMY/piano-hands/releases/download/1.0/dataset.zip"
     }
   ]
 }
