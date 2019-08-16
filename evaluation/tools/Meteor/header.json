@@ -4,6 +4,25 @@
   "scores": [
     "Meteor"
   ],
+  "input": {
+    "texts": {
+      "type": "list",
+      "parameters": {
+        "type": "object",
+        "parameters": {
+          "hypothesis": {
+            "type": "text"
+          },
+          "references": {
+            "type": "list",
+            "parameters": {
+              "type": "text"
+            }
+          }
+        }
+      }
+    }
+  },
   "versions": [
     {
       "date": "2014",

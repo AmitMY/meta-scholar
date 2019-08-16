@@ -1,24 +1,5 @@
 {
   "title": "Meteor",
   "description": "The Meteor automatic evaluation metric scores machine translation hypotheses by aligning them to one or more reference translations. Alignments are based on exact, stem, synonym, and paraphrase matches between words and phrases. Segment and system level metric scores are calculated based on the alignments between hypothesis-reference pairs. The metric includes several free parameters that are tuned to emulate various human judgment tasks including WMT ranking and NIST adequacy. The current version also includes a tuning configuration for use with MERT and MIRA. Meteor has extended support (paraphrase matching and tuned parameters) for the following languages: English, Czech, German, French, Spanish, and Arabic. Meteor is implemented in pure Java and requires no installation or dependencies to score MT output. On average, hypotheses are scored at a rate of 500 segments per second per CPU core. Meteor consistently demonstrates high correlation with human judgments in independent evaluations such as EMNLP WMT 2011 and NIST Metrics MATR 2010.",
-  "publication": "denkowski-meteor-2014",
-  "input": {
-    "texts": {
-      "type": "list",
-      "parameters": {
-        "type": "object",
-        "parameters": {
-          "hypothesis": {
-            "type": "text"
-          },
-          "references": {
-            "type": "list",
-            "parameters": {
-              "type": "text"
-            }
-          }
-        }
-      }
-    }
-  }
+  "publication": "denkowski-meteor-2014"
 }

@@ -11,21 +11,39 @@
       "version": "2.1",
       "metrics": [
         "BLEU"
-      ]
+      ],
+      "input_map": {
+        "texts": {
+          "hypothesis": "text",
+          "references": "texts"
+        }
+      }
     },
     {
       "tool": "Meteor",
       "version": "1.5",
       "metrics": [
         "Meteor"
-      ]
+      ],
+      "input_map": {
+        "texts": {
+          "hypothesis": "text",
+          "references": "texts"
+        }
+      }
     },
     {
       "tool": "TERCom",
       "version": "0.7",
       "metrics": [
         "TER"
-      ]
+      ],
+      "input_map": {
+        "texts": {
+          "hypothesis": "text",
+          "references": "texts"
+        }
+      }
     }
   ]
 }
