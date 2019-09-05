@@ -1,0 +1,14 @@
+{
+  "name": "PIG",
+  "descriptions": "PIG Dataset is publicly available data for academic research on piano fingering. It is a collection of classical piano pieces with fingering annotations for all musical notes.",
+  "data": {
+
+  },
+  "versions": [
+    {
+      "date": "2019-04-23",
+      "version": "1.02",
+      "url": "https://files.slack.com/files-pri/T71UWLSJ2-FMK6W6C66/download/pianofingeringdataset_v1.02.zip"
+    }
+  ]
+}
