@@ -1,6 +1,7 @@
 {
   "name": "Piano-Hands",
   "descriptions": "Object tagging of right and left hands on a piano background",
+  "homepage": "https://github.com/AmitMY/piano-hands",
   "data": {
     "image": {
       "type": "file",

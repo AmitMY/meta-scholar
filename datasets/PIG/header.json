@@ -1,14 +1,93 @@
 {
   "name": "PIG",
   "descriptions": "PIG Dataset is publicly available data for academic research on piano fingering. It is a collection of classical piano pieces with fingering annotations for all musical notes.",
+  "publication": "nakamura-pig-2019",
+  "homepage": "http://beam.kisarazu.ac.jp/~saito/research/PianoFingeringDataset/",
   "data": {
-
+    "piece": {
+      "type": "text"
+    },
+    "composer": {
+      "type": "text"
+    },
+    "tagger": {
+      "type": "text"
+    },
+    "#bars": {
+      "type": "number"
+    },
+    "#notes": {
+      "type": "number"
+    },
+    "notes": {
+      "type": "list",
+      "parameters": {
+        "type": "object",
+        "parameters": {
+          "on_event": {
+            "type": "object",
+            "parameters": {
+              "time": {
+                "type": "number"
+              },
+              "velocity": {
+                "type": "number"
+              }
+            }
+          },
+          "off_event": {
+            "type": "object",
+            "parameters": {
+              "time": {
+                "type": "number"
+              },
+              "velocity": {
+                "type": "number"
+              }
+            }
+          },
+          "spelled_pitch": {
+            "type": "string"
+          },
+          "midi_pitch": {
+            "type": "number"
+          },
+          "channel": {
+            "type": "number"
+          },
+          "fingers": {
+            "type": "list",
+            "parameters": {
+              "type": "object",
+              "parameters": {
+                "finger": {
+                  "type": "number"
+                },
+                "hand": {
+                  "type": "text"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   },
   "versions": [
     {
-      "date": "2019-04-23",
+      "date": "2019-06-25",
       "version": "1.02",
-      "url": "https://files.slack.com/files-pri/T71UWLSJ2-FMK6W6C66/download/pianofingeringdataset_v1.02.zip"
+      "url": "http://beam.kisarazu.ac.jp/~saito/research/PianoFingeringDataset/download/PianoFingeringDataset_v1.02.zip"
+    },
+    {
+      "date": "2019-05-20",
+      "version": "1.01",
+      "url": "http://beam.kisarazu.ac.jp/~saito/research/PianoFingeringDataset/download/PianoFingeringDataset_v1.01.zip"
+    },
+    {
+      "date": "2019-05-11",
+      "version": "1.00",
+      "url": "http://beam.kisarazu.ac.jp/~saito/research/PianoFingeringDataset/download/PianoFingeringDataset_v1.00.zip"
     }
   ]
 }
