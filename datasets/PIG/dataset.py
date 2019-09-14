@@ -7,7 +7,6 @@ from urllib.request import urlretrieve
 import csv
 
 import jsonlines
-from tqdm import tqdm
 from utils.file_system import makedir, listdir
 
 base = path.dirname(path.abspath(__file__))
@@ -90,7 +89,7 @@ def download(version, directory):
 
     fingering_dir = path.join(raw_dataset_dir, "FingeringFiles")
     with jsonlines.open(path.join(directory, "index.jsonl"), mode='w') as writer:
-        for file in tqdm(listdir(fingering_dir, full=False)):
+        for file in listdir(fingering_dir, full=False):
             file_id, tagger_id = map(int, file.split("_")[0].split("-"))
             mata = metadata_id[file_id]
 
