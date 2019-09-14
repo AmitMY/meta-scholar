@@ -40,7 +40,7 @@ notes = {
 def note_to_midi(note: str):
     note_name = note[:-1]
     octave = int(note[-1])
-    return notes[note_name] + (octave + 2) * 12
+    return notes[note_name] + (octave + 1) * 12
 
 
 def download_version(version="1.02"):
@@ -76,7 +76,6 @@ def download(version, directory):
     handler = urllib.request.HTTPBasicAuthHandler(password_mgr)
     urllib.request.install_opener(urllib.request.build_opener(handler))
 
-
     file_handle, _ = urlretrieve(url)
     with zipfile.ZipFile(file_handle, 'r') as zipObj:
         zipObj.extractall(raw_dir)
@@ -96,6 +95,7 @@ def download(version, directory):
             mata = metadata_id[file_id]
 
             datum = {
+                "id": file.split("_")[0],
                 "piece": mata[2],
                 "composer": mata[1],
                 "tagger": mata[5 + tagger_id],
