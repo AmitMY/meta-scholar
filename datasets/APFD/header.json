@@ -1,0 +1,79 @@
+{
+  "name": "AFPD",
+  "descriptions": "Dataset of piano fingering automatically extracted from YouTube videos",
+  "homepage": "https://github.com/AmitMY/piano-fingering-extraction",
+  "data": {
+    "piece": {
+      "type": "text"
+    },
+    "tagger": {
+      "type": "text"
+    },
+    "#notes": {
+      "type": "number"
+    },
+    "notes": {
+      "type": "list",
+      "parameters": {
+        "type": "object",
+        "parameters": {
+          "on_event": {
+            "type": "object",
+            "parameters": {
+              "time": {
+                "type": "number"
+              },
+              "velocity": {
+                "type": "number"
+              }
+            }
+          },
+          "off_event": {
+            "type": "object",
+            "parameters": {
+              "time": {
+                "type": "number"
+              },
+              "velocity": {
+                "type": "number"
+              }
+            }
+          },
+          "spelled_pitch": {
+            "type": "string"
+          },
+          "midi_pitch": {
+            "type": "number"
+          },
+          "channel": {
+            "type": "number"
+          },
+          "fingers": {
+            "type": "list",
+            "parameters": {
+              "type": "object",
+              "parameters": {
+                "finger": {
+                  "type": "number"
+                },
+                "hand": {
+                  "type": "text"
+                },
+                "distribution": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "versions": [
+    {
+      "date": "2019-09-15",
+      "version": "beta",
+      "url": "http://nlp.biu.ac.il/~amit/piano/cache/dataset.jsonl"
+    }
+  ]
+}
