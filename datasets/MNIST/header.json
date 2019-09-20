@@ -1,0 +1,34 @@
+{
+  "name": "MNIST",
+  "descriptions": "Deep learning starter dataset for small images classification",
+  "requirements": [
+    "keras",
+    "tensorflow",
+    "Pillow"
+  ],
+  "data": {
+    "label": {
+      "type": "text"
+    },
+    "image": {
+      "type": "file",
+      "parameters": {
+        "type": "image",
+        "extension": "png"
+      }
+    }
+  },
+  "versions": [
+    {
+      "date": "1998",
+      "homepage": "http://yann.lecun.com/exdb/mnist/",
+      "version": "digits"
+    },
+    {
+      "date": "2017-10-20",
+      "homepage": "https://www.kaggle.com/datamunge/sign-language-mnist",
+      "version": "sign-language",
+      "url": "https://storage.googleapis.com/kaggle-datasets/3258/5337/sign-language-mnist.zip?GoogleAccessId=web-data@kaggle-161607.iam.gserviceaccount.com&Expires=1569182214&Signature=rIWPEL259h4yE2BGTRxwYmHvxv0SbAtPzLN%2ByA7CF7E61ChHeBvxYxBB1onCudgJfZ7iGmloqfPN6%2B8KnE3mtaKHw22U0oiScL89gJ1P1ODPo8%2FZ1X0t1xSojxpioJIwRh6reiEPFh%2F0AqVE8e1qsPx99bPzIuRpBpsVvTYcRkr9DeCOpszGxyQsaXpKPl7iOJXjF4%2Fa9S2Jd2U0A8%2BDdBCeRPFycBVJjQHOiflT5K1jwmMf8ABeGs87f8g79HKo3WYJp7aXmMoczVYAuLpZ%2B1uy4a7f4%2FtVYx%2FM2f%2BKqCPqavW8RhU7vgL3UokzCOS%2B4vV5TDQBP8Ro%2FhX%2BfeOamA%3D%3D"
+    }
+  ]
+}
