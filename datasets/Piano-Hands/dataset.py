@@ -9,12 +9,7 @@ from utils.file_system import makedir
 base = path.dirname(path.abspath(__file__))
 
 
-def download(version="1.0"):
-    versions_dir = path.join(base, "versions")
-    makedir(versions_dir)
-    version_dir = path.join(versions_dir, version)
-    makedir(version_dir)
-
+def download(version, directory):
     header = json.load(open(path.join(base, "header.json")))
     versions = [v for v in header["versions"] if v["version"] == version]
     if len(versions) == 0:
@@ -24,8 +19,4 @@ def download(version="1.0"):
 
     file_handle, _ = urlretrieve(url)
     with zipfile.ZipFile(file_handle, 'r') as zipObj:
-        zipObj.extractall(version_dir)
-
-
-if __name__ == "__main__":
-    download()
+        zipObj.extractall(directory)

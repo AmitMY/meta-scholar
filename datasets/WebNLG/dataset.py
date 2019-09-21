@@ -1,28 +1,7 @@
 import json
-import os
-import urllib
 from os import path
 from urllib.request import urlopen
-
 import jsonlines
-
-from utils.file_system import makedir
-
-base = path.dirname(path.abspath(__file__))
-
-
-def download_version(version="2"):
-    header = json.load(open(path.join(base, "header.json")))
-    versions = [v for v in header["versions"] if v["version"] == version]
-    if len(versions) == 0:
-        raise ValueError("Version not found")
-
-    versions_dir = path.join(base, "versions")
-    makedir(versions_dir)
-    version_dir = path.join(versions_dir, version)
-    makedir(version_dir)
-
-    return download(versions[0], version_dir)
 
 
 def download(version, directory):
@@ -54,7 +33,3 @@ def download(version, directory):
                     lines += 1
 
     json.dump(splits, open(path.join(directory, "split.json"), "w"))
-
-
-if __name__ == "__main__":
-    download_version("2")

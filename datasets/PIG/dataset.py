@@ -1,4 +1,3 @@
-import json
 import os
 import urllib
 from os import path
@@ -40,20 +39,6 @@ def note_to_midi(note: str):
     note_name = note[:-1]
     octave = int(note[-1])
     return notes[note_name] + (octave + 1) * 12
-
-
-def download_version(version="1.02"):
-    header = json.load(open(path.join(base, "header.json")))
-    versions = [v for v in header["versions"] if v["version"] == version]
-    if len(versions) == 0:
-        raise ValueError("Version not found")
-
-    versions_dir = path.join(base, "versions")
-    makedir(versions_dir)
-    version_dir = path.join(versions_dir, version)
-    makedir(version_dir)
-
-    return download(versions[0], version_dir)
 
 
 def download(version, directory):
@@ -125,7 +110,3 @@ def download(version, directory):
                 })
 
             writer.write(datum)
-
-
-if __name__ == "__main__":
-    download_version()

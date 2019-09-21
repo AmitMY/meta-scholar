@@ -3,7 +3,7 @@ import string
 import zipfile
 from collections import defaultdict
 from os import path
-from urllib.request import urlopen, urlretrieve
+from urllib.request import urlretrieve
 
 import jsonlines
 import numpy as np
@@ -12,24 +12,8 @@ from tqdm import tqdm
 
 from utils.file_system import makedir, temp_dir
 
-base = path.dirname(path.abspath(__file__))
 
-
-def download_version(version="digits"):
-    header = json.load(open(path.join(base, "header.json")))
-    versions = [v for v in header["versions"] if v["version"] == version]
-    if len(versions) == 0:
-        raise ValueError("Version not found")
-
-    versions_dir = path.join(base, "versions")
-    makedir(versions_dir)
-    version_dir = path.join(versions_dir, version)
-    makedir(version_dir)
-
-    return download(versions[0], version_dir)
-
-
-def download_digits(version, images_dir):
+def download_digits(images_dir):
     from keras.datasets import mnist
     mnist_data = mnist.load_data()
 
@@ -47,7 +31,7 @@ def download_digits(version, images_dir):
             }
 
 
-def download_sign_language(version, directory, images_dir):
+def download_sign_language(version, images_dir):
     labels = string.ascii_lowercase
 
     temp = temp_dir()
@@ -80,9 +64,9 @@ def download(version, directory):
     makedir(images_dir)
 
     if version["version"] == "digits":
-        res = download_digits(version, images_dir)
+        res = download_digits(images_dir)
     elif version["version"] == "sign-language":
-        res = download_sign_language(version, directory, images_dir)
+        res = download_sign_language(version, images_dir)
     else:
         raise ValueError("Downloading this version is not implemented")
 
@@ -94,7 +78,3 @@ def download(version, directory):
             writer.write(row)
 
     json.dump(splits, open(path.join(directory, 'split.json'), "w"))
-
-
-if __name__ == "__main__":
-    download_version("sign-language")
