@@ -1,0 +1,38 @@
+{
+  "name": "PanopticHandDB",
+  "descriptions": "Hand Keypoint Detection in Single Images using Multiview Bootstrapping",
+  "publication": "simon-handdb-2017",
+  "data": {
+    "hand": {
+      "type": "text"
+    },
+    "pose": {
+      "type": "list",
+      "parameters": {
+        "type": "list",
+        "parameters": {
+          "type": "number"
+        }
+      }
+    },
+    "image": {
+      "type": "file",
+      "parameters": {
+        "type": "image",
+        "extension": "png"
+      }
+    }
+  },
+  "versions": [
+    {
+      "date": "2017",
+      "version": "manual",
+      "url": "http://domedb.perception.cs.cmu.edu/panopticDB/hands/hand_labels.zip"
+    },
+    {
+      "date": "2017",
+      "version": "synthetic",
+      "url": "http://domedb.perception.cs.cmu.edu/panopticDB/hands/hand_labels_synth.zip"
+    }
+  ]
+}

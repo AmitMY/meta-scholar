@@ -1,3 +1,4 @@
+import argparse
 import importlib.util
 import json
 from collections import defaultdict
@@ -32,10 +33,16 @@ def load(dataset, version=None, split=False):
     version_dir = path.join(versions_dir, versions[0]["version"])
     if not exists(version_dir):
         makedir(version_dir)
-        module.download(versions[0], version_dir)
+        # module.download(versions[0], version_dir)
+    module.download(versions[0], version_dir)
 
     # Load dataset and splits
     data = list(jsonlines.open(path.join(version_dir, 'index.jsonl')))
+    for key, props in header["data"].items():
+        if props["type"] == "file":
+            for datum in data:
+                datum["key"] = path.join(version_dir, datum["key"])
+
     if not split:
         return data
     else:
@@ -46,4 +53,9 @@ def load(dataset, version=None, split=False):
 
 
 if __name__ == "__main__":
-    print(load('WebNLG', split=True)["train"][0])
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-d', '--dataset', help="Dataset ID", required=True)
+    parser.add_argument('-v', '--version', help="Version ID", default=None)
+    args = parser.parse_args()
+
+    load(args.dataset, args.version)
