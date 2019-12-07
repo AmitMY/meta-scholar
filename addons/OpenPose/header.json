@@ -1,0 +1,41 @@
+{
+  "name": "OpenPose",
+  "descriptions": "Adds Openpose full body pose estimation on videos",
+  "join_on": "id",
+  "data": {
+    "id": {
+      "type": "text"
+    },
+    "poses": {
+      "type": "list",
+      "parameters": {
+        "type": "object",
+        "parameters": {
+          "body": {
+            "type": "pose_2d"
+          },
+          "face": {
+            "type": "pose_2d"
+          },
+          "hand_left": {
+            "type": "pose_2d"
+          },
+          "hand_right": {
+            "type": "pose_2d"
+          }
+        }
+      }
+    }
+  },
+  "versions": [
+    {
+      "version": "BODY_25"
+    },
+    {
+      "version": "COCO"
+    },
+    {
+      "version": "MPI"
+    }
+  ]
+}

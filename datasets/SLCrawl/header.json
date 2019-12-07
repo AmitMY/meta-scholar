@@ -73,6 +73,9 @@
       "url": "https://www.handspeak.com/"
     },
     {
+      "version": "SpreadTheSign"
+    },
+    {
       "version": "ASLChars",
       "url": "https://github.com/mon95/Sign-Language-and-Static-gesture-recognition-using-sklearn/raw/master/Dataset.zip"
     }

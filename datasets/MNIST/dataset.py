@@ -75,6 +75,7 @@ def download(version, directory):
     with jsonlines.open(path.join(directory, "index.jsonl"), mode='w') as writer:
         for i, (split, row) in tqdm(enumerate(res)):
             splits[split].append(i)
+            row["image"] = "images/" + row["image"]
             writer.write(row)
 
     json.dump(splits, open(path.join(directory, 'split.json'), "w"))

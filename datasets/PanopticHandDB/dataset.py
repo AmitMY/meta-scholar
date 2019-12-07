@@ -57,10 +57,9 @@ def download_manual(version, images_dir):
 
 def download_synthetic(version, images_dir):
     temp = temp_dir()
-    temp = "C:\\Users\\Amit\\AppData\\Local\\Temp\\tmpx6quakap\\"
-    # file_handle, _ = urlretrieve(version["url"])
-    # with zipfile.ZipFile(file_handle, 'r') as zipObj:
-    #     zipObj.extractall(temp)
+    file_handle, _ = urlretrieve(version["url"])
+    with zipfile.ZipFile(file_handle, 'r') as zipObj:
+        zipObj.extractall(temp)
 
     labels_dir = path.join(temp, "hand_labels_synth")
 

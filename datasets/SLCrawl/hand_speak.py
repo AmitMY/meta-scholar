@@ -104,6 +104,6 @@ def download_HandSpeak(version):
         for k, v in datum.items():
             d[k] = v
         datum["signer"] = {"gender": "female"}
-        datum["sign_language"] = "ASL"
+        datum["sign_language"] = "en.us"
         datum["text_language"] = "English"
         yield d
