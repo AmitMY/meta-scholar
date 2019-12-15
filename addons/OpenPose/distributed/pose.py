@@ -2,7 +2,8 @@
 tmux new -s celery
 conda activate meta-scholar
 cd ~/PhD/meta-scholar
-celery -A addons.OpenPose.distributed.pose worker --loglevel=info --autoscale=4,1
+celery -A addons.OpenPose.distributed.pose worker --loglevel=info --autoscale=2,1
+celery -A addons.OpenPose.distributed.pose flower --port=5555
 """
 #
 #

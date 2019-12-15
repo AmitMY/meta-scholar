@@ -25,7 +25,7 @@ def pose_video(datum):
 
     if not exists(datum["pose_dir"]):
         # Create Container
-        d_create = "nvidia-docker create -it --rm -v " + datum["video"] + ":/video.mp4 --workdir /openpose amitmy/openpose"
+        d_create = "nvidia-docker create -it --rm -v " + datum["video"] + ":/video.mp4 --workdir /openpose openpose"
         print(d_create)
         container_id = os.popen(d_create).read().strip()
 
@@ -35,8 +35,11 @@ def pose_video(datum):
         os.system(d_start)
 
         # Exec openpose
+        # gpu = GPUtil.getFirstAvailable(order='first', maxLoad=0.1, maxMemory=0.1, attempts=10, interval=30)[0]
+        # gpu = randint(0, GPUs - 1)
+        gpu = GPUtil.getFirstAvailable(order='memory', maxLoad=1, maxMemory=1)[0]
         cmd = "./build/examples/openpose/openpose.bin --video /video.mp4 --model_pose BODY_25 --display 0 --render_pose 0 --write_json /out/ --hand --face --num_gpu 1 "
-        cmd += " --num_gpu_start " + str(randint(0, GPUs - 1))
+        cmd += " --num_gpu_start " + str(gpu)
         d_exec = "docker exec " + container_id + " bash -c 'cd /openpose && " + cmd + "'"
         print(d_exec)
         status = os.system(d_exec)
