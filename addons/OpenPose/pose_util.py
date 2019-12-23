@@ -43,6 +43,20 @@ BODY_LIMBS = [
     ("LBigToe", "LSmallToe"),
 ]
 
+
+#        8   12  16  20
+#        |   |   |   |
+#        7   11  15  19
+#    4   |   |   |   |
+#    |   6   10  14  18
+#    3   |   |   |   |
+#    |   5---9---13--17
+#    2    \         /
+#     \    \       /
+#      1    \     /
+#       \    \   /
+#        ------0-
+
 # Anatomy guide http://blog.handcare.org/blog/2017/10/26/anatomy-101-finger-joints/
 HAND_POINTS = [
     "BASE",
@@ -132,6 +146,9 @@ def get_file_person(f_name: str):
 
     return structure_raw_person(people[0])
 
+def get_directory_person(directory: str):
+    return [get_file_person(f) for f in listdir(directory, full=True)]
+
 
 HAND_POINTS_COLOR = [
     [192, 0, 0],
@@ -205,8 +222,7 @@ def create_video(shape, person_frames: list, fname=None, fps=25):
 
 
 def create_video_from_directory(directory: str, shape=(320, 320, 3), fname=None):
-    person_frames = [get_file_person(f) for f in listdir(directory, full=True)]
-    return create_video(shape, person_frames, fname=fname)
+    return create_video(shape, get_directory_person(directory), fname=fname)
 
 
 if __name__ == "__main__":

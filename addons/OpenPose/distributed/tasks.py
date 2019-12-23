@@ -1,11 +1,11 @@
-# python -m addons.OpenPose.distributed.tasks
 import os
 from os import path
 from os.path import exists
 
+from jsonlines import jsonlines
 from tqdm import tqdm
 
-from addons.OpenPose.distributed.pose import pose_distributed
+from addons.OpenPose.pose_util import get_directory_person
 from utils.dataset import load
 from utils.file_system import makedir, listdir
 
@@ -20,11 +20,19 @@ if __name__ == "__main__":
     existing = {path.join(poses_dir, d) for d in os.listdir(poses_dir)}
     print("Existing", len(existing))
 
-    tasks = 0
-    for datum in tqdm(dataset):
-        datum["pose_dir"] = path.join(poses_dir, datum["id"])
-        if datum["pose_dir"] not in existing:
-            tasks += 1
-            # pose_distributed.delay(datum)
+    new_data = []
+
+    with jsonlines.open("sample.jsonl", mode='w') as writer:
+        tasks = 0
+        for datum in tqdm(dataset):
+            datum["pose_dir"] = path.join(poses_dir, datum["id"])
+            if datum["pose_dir"] not in existing:
+                tasks += 1
+                # pose_distributed.delay(datum)
+            else:
+                datum["OpenPose"] = {"BODY_25": get_directory_person(datum["pose_dir"])}
+                writer.write(datum)
+
+
 
     print("Created", tasks, "tasks")
