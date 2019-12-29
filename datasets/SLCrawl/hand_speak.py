@@ -6,6 +6,8 @@ from itertools import chain
 from urllib.request import urlopen
 from tqdm import tqdm
 
+from datasets.SLCrawl.util import word2chars
+
 
 def download_HandSpeak(version):
     def clean_text(t):
@@ -18,21 +20,8 @@ def download_HandSpeak(version):
         raw = json.loads(json_text)
 
         for row in raw:
-            text = ""
-
-            is_start = True
-            for c in row["word"]:
-                if c == " ":
-                    is_start = True
-                    text = text[:-2] + " "
-                else:
-                    if not is_start:
-                        text += "#"
-                    text += c + "# "
-                    is_start = False
-
             yield {
-                "texts": [{"text": text[:-2]}],
+                "texts": [{"text": word2chars(row["word"])}],
                 "video_url": row["src"]
             }
 

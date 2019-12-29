@@ -36,7 +36,10 @@ def download(directory: str, version, module_path: str, dataset=None):
     if not exists(version_dir) or not exists(index_path):
         makedir(version_dir)
         module = modular_import("module", module_path)
-        module.download(version, version_dir, dataset)
+        if dataset is None:
+            module.download(version, version_dir)
+        else:
+            module.download(version, version_dir, dataset)
 
     data = list(jsonlines.open(index_path))
 
@@ -54,6 +57,7 @@ def load_header(header_path: str, version: str = None):
         raise ValueError("Version not found")
 
     return header, versions[0]
+
 
 def format_data(header, version_dir, data):
     # Manage data types
@@ -105,16 +109,16 @@ def load(dataset: str, version: str = None, split=False, addons=[]):
 
     # Load addons
     for addon in addons:
-        a_header, a_data = load_addon(addon["name"], addon["version"] if "version" in addon else None, data,
-                                      version_dir)
+        addon_version = addon["version"] if "version" in addon else None
+        a_header, a_data = load_addon(addon["name"], addon_version, data, version_dir)
 
         indexed_data = index_by(data, a_header["join_on"])
         for d in a_data:
             for datum in indexed_data[d[a_header["join_on"]]]:
-                datum.update(d)
+                datum[addon["name"]] = d
 
         # Add fields to schema
-        header["data"].update(a_header["data"])
+        header["data"][addon["name"]] = a_header["data"]
 
     # Load splits
     if not split:
@@ -134,5 +138,4 @@ if __name__ == "__main__":
     #
     # load(args.dataset, args.version)
     logging.basicConfig(level=logging.DEBUG)
-
     load("SLCrawl", version="SpreadTheSign", addons=[{"name": "OpenPose"}])

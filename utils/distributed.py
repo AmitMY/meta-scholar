@@ -14,9 +14,15 @@ CURRENT_HOST = socket.gethostname()
 
 PROCESSES = []
 
+"""
+docker run -d -p 5672:5672 rabbitmq
+docker run -d -p 6379:6379 redis
+"""
+
 
 class Distributed:
     def __init__(self, name, master, slaves, module_path):
+        self.master = master
         self.slaves = slaves
         self.module_path = module_path
 
@@ -57,20 +63,31 @@ class Distributed:
 
         PROCESSES.append(process)
 
+    def kill(self, servers, what="worker"):
+        kill_others = 'ps U $(whoami) | grep \'celery -A .* ' + what + '\' | tr -s \' \' | sed \'s/[ ]\?\([0-9]*\).*/\\1/g\' | xargs kill'
+
+        self.spread(kill_others, servers)
+
+    def spread(self, cmd: str, servers: list, sync: bool = True):
+        for slave in servers:
+            print("Spread", cmd, slave)
+            self.cmd("ssh " + slave + " \"" + cmd + "\"", sync)
+
     def spawn_workers(self):
-        kill_others = 'ps U $(whoami) | grep \'celery -A .* worker\' | tr -s \' \' | sed \'s/[ ]\?\([0-9]*\).*/\\1/g\' | xargs kill'
         cmds = self.env_cmd + [self.celery_path + " -A " + self.module_path + " worker --loglevel=info --autoscale=4,1"]
+        self.kill(servers=self.slaves)
+        self.spread(cmd=" && ".join(cmds), servers=self.slaves, sync=False)
 
-        for slave in self.slaves:
-            self.cmd("ssh " + slave + " \"" + kill_others + "\"", True)  # Kill all other celery workers
-            self.cmd("ssh " + slave + " '" + " && ".join(cmds) + "'")  # Start a celry worker
+        return self
 
+    def clear_tasks(self):
+        print("Purge queue")
+        self.app.control.purge()
         return self
 
     def run(self, callable, data):
         # Clear Queue
-        print("Purge queue")
-        self.app.control.purge()
+        self.clear_tasks()
         time.sleep(1)
 
         # Create all distributed tasks in the queue
@@ -79,18 +96,36 @@ class Distributed:
         t = tqdm(total=len(tasks), unit="task")
         results = ResultSet(tasks, app=self.app)
 
+        start_time = time.time()
+
         # Wait for all distributed tasks to finish
         last_completed = 0
-        while not results.ready():
-            completed = results.completed_count()
-            t.update(completed - last_completed)
-            last_completed = completed
+        while True:
+            if time.time() - start_time > 3600: # Will happen every hour
+                start_time = time.time()
+                self.spawn_workers() # Restart all slaves
+
+            try:
+                if results.ready():
+                    break
+                completed = results.completed_count()
+                t.update(completed - last_completed)
+                last_completed = completed
+            except Exception as e:
+                time.sleep(10)
+                pass
+
             time.sleep(1)
+
         t.update(results.completed_count() - last_completed)
 
         return self
 
     def flower(self):
+        print("Kill Flower")
+        self.kill([self.master], "flower")
+
+        print("Run flower")
         cmds = self.env_cmd + [self.celery_path + " -A " + self.module_path + " flower --port=5555"]
         self.cmd(" && ".join(cmds))
 
@@ -98,6 +133,7 @@ class Distributed:
 
 
 def cleanup(*args):
+    print("Cleaned up")
     if len(PROCESSES) == 0:
         return
     for p in PROCESSES:

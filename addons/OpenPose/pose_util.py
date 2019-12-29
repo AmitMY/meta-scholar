@@ -1,3 +1,4 @@
+import base64
 import json
 from functools import lru_cache
 
@@ -42,7 +43,6 @@ BODY_LIMBS = [
     ("LAnkle", "LBigToe"),
     ("LBigToe", "LSmallToe"),
 ]
-
 
 #        8   12  16  20
 #        |   |   |   |
@@ -139,12 +139,80 @@ def structure_raw_person(raw):
     return person
 
 
+def points_compress(obj, points):
+    if len(obj) == 0:
+        return None
+
+    arr = np.zeros((len(points) * 3), dtype="float16")
+
+    for i, p in enumerate(points):
+        if p in obj:
+            arr[i * 3 + 0] = obj[p]["x"]
+            arr[i * 3 + 1] = obj[p]["y"]
+            arr[i * 3 + 2] = obj[p]["c"]
+
+    return base64.b64encode(arr.tobytes()).decode('latin-1')
+
+
+def points_expand(base64_str, points):
+    if base64_str is None:
+        return {}
+
+    decoded = base64.b64decode(base64_str)
+
+    arr = np.frombuffer(decoded, dtype="float16")
+
+    obj = {}
+
+    for i, p in enumerate(points):
+        x = float(arr[i * 3 + 0])
+        y = float(arr[i * 3 + 1])
+        c = float(arr[i * 3 + 2])
+
+        if x != 0 and y != 0:
+            obj[p] = {"x": x, "y": y, "c": c}
+
+    return obj
+
+
+def compress(person):
+    return {
+        "body": points_compress(person["body"], BODY_POINTS),
+        "hand_left": points_compress(person["hand_left"], HAND_POINTS),
+        "hand_right": points_compress(person["hand_right"], HAND_POINTS),
+        "face": points_compress(person["face"], FACE_POINTS),
+    }
+
+
+def compress_frames(frames):
+    return [compress(p) for p in frames]
+
+
+def expand(person):
+    return {
+        "body": points_expand(person["body"], BODY_POINTS),
+        "hand_left": points_expand(person["hand_left"], HAND_POINTS),
+        "hand_right": points_expand(person["hand_right"], HAND_POINTS),
+        "face": points_expand(person["face"], FACE_POINTS),
+    }
+
+
+def expand_frames(frames):
+    return [expand(p) for p in frames]
+
+
 def get_file_person(f_name: str):
     people = json.load(open(f_name))["people"]
     if len(people) == 0:
-        return None
+        return {
+            "body": {},
+            "hand_left": {},
+            "hand_right": {},
+            "face": {},
+        }
 
     return structure_raw_person(people[0])
+
 
 def get_directory_person(directory: str):
     return [get_file_person(f) for f in listdir(directory, full=True)]
@@ -226,6 +294,10 @@ def create_video_from_directory(directory: str, shape=(320, 320, 3), fname=None)
 
 
 if __name__ == "__main__":
-    example = "../../datasets/SLCrawl/versions/SpreadTheSign/OpenPose/BODY_25/poses/10013_hr.hr_0/"
+    # example = "../../datasets/SLCrawl/versions/SpreadTheSign/OpenPose/BODY_25/poses/10013_hr.hr_0/"
+    # drawn = create_video_from_directory(example, fname="main.mp4")
 
-    drawn = create_video_from_directory(example, fname="main.mp4")
+    c = points_compress({"RHeel": {"x": 1234.546, "y": 2, "c": 3}}, BODY_POINTS)
+    e = points_expand(c, BODY_POINTS)
+    print(c)
+    print(e)

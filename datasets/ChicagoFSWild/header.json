@@ -1,0 +1,79 @@
+{
+  "name": "ChicagoFSWild",
+  "descriptions": "Collection of American Sign Language fingerspelling data \"in the wild,\" that is in naturally occurring (online) video.",
+  "data": {
+    "id": {
+      "type": "text"
+    },
+    "texts": {
+      "type": "list",
+      "parameters": {
+        "type": "object",
+        "parameters": {
+          "text": {
+            "type": "text"
+          },
+          "modifier": {
+            "type": "text"
+          }
+        }
+      }
+    },
+    "gloss": {
+      "type": "text"
+    },
+    "description": {
+      "type": "text"
+    },
+    "video_url": {
+      "type": "url"
+    },
+    "video": {
+      "type": "file",
+      "parameters": {
+        "type": "video"
+      }
+    },
+    "timing": {
+      "type": "object",
+      "parameters": {
+        "start": {
+          "type": "string"
+        }
+      }
+    },
+    "sign_language": {
+      "type": "text"
+    },
+    "text_language": {
+      "type": "text"
+    },
+    "signer": {
+      "type": "object",
+      "parameters": {
+        "gender": {
+          "type": "text"
+        },
+        "age": {
+          "type": "number"
+        },
+        "ethnicity": {
+          "type": "text"
+        },
+        "synthetic": {
+          "type": "boolean"
+        }
+      }
+    }
+  },
+  "versions": [
+    {
+      "version": "ChicagoFSWildPlus",
+      "url": "https://dl.ttic.edu/ChicagoFSWildPlus.tgz"
+    },
+    {
+      "version": "ChicagoFSWild",
+      "url": "https://dl.ttic.edu/ChicagoFSWild.tgz"
+    }
+  ]
+}
