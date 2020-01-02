@@ -11,7 +11,7 @@ from GPUtil import GPUtil
 from jsonlines import jsonlines
 from tqdm import tqdm
 
-from addons.OpenPose.pose_util import get_directory_person, compress_OpenPose
+from addons.OpenPose.pose_util import get_directory_person, compress_frames
 from utils.distributed import Distributed
 from utils.file_system import makedir
 
@@ -20,20 +20,20 @@ user = getpass.getuser()
 
 # slaves = ["nlp01", "nlp02", "nlp03", "nlp05", "nlp06", "nlp09", "nlp10", "nlp11", "nlp12", "nlp13", "nlp14", "nlp15"]
 slaves = [
-    # "nlp01",
-    "nlp02",
-    "nlp03",
-    "nlp04",
-    # "nlp05", Amir
-    "nlp06",
-    "nlp07",
-    "nlp08",
-    "nlp09",
-    "nlp10",
-    "nlp11",
-    "nlp12",
-    # "nlp13", Can't connect to nlp01
-    # "nlp14", Can't connect to nlp01
+    # # "nlp01",
+    # "nlp02",
+    # "nlp03",
+    # "nlp04",
+    # # "nlp05", # Amir
+    # "nlp06",
+    # "nlp07",
+    # "nlp08",
+    # "nlp09",
+    # "nlp10",
+    # "nlp11",
+    # "nlp12",
+    # # "nlp13", Can't connect to nlp01
+    # # "nlp14", Can't connect to nlp01
     "nlp15"
 ]
 d = Distributed("OpenPose", "nlp01", slaves, "addons.OpenPose.addon")
@@ -157,7 +157,7 @@ def download(version, directory: str, dataset: list):
         for datum in tqdm(dataset):
             writer.write({
                 "id": datum["id"],
-                "poses": [compress_OpenPose(p) for p in get_directory_person(datum["pose_dir"])]
+                "poses": compress_frames(get_directory_person(datum["pose_dir"]))
             })
 
 

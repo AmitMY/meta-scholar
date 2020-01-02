@@ -7,11 +7,8 @@ from typing import List
 
 
 def makedir(directory):
-    try:
+    if not os.path.exists(directory):
         os.makedirs(directory)
-    except OSError as e:
-        if e.errno != errno.EEXIST:
-            raise
 
 
 def rmdir(directory):
