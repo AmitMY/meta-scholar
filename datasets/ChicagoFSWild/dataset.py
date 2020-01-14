@@ -8,16 +8,14 @@ import tarfile
 import wget
 from tqdm import tqdm
 
+from addons.FFmpeg.ffmpeg_utils import FFmpeg
 from datasets.SLCrawl.util import word2chars
 from utils.dataset import load
 from utils.file_system import makedir
 
 
 def download(version, directory: str):
-    # First check if FFMPEG is installed
-    ffmpeg_path = "/".join(sys.executable.split("/")[:-1] + ["ffmpeg"])
-    if not path.exists(ffmpeg_path):
-        raise Exception("Missing ffmpeg! Looked in '" + ffmpeg_path + "' - please run 'conda install ffmpeg'")
+    FFmpeg.check_installed()
 
     dataset_directory = path.join(directory, "dataset")
     if not path.exists(dataset_directory):
@@ -66,11 +64,7 @@ def download(version, directory: str):
             datum_frames = path.join(frames_directory, row[1])
             datum_video = path.join(videos_directory, datum_id + ".mp4")
             if not path.exists(datum_video):
-                cmd = ffmpeg_path + " -framerate 24 -hide_banner -loglevel panic -i \"" + datum_frames + "/%04d.jpg\" " + datum_video + ""
-                status = system(cmd)
-                if int(status) != 0:
-                    print(cmd)
-                    raise Exception("FFMPEG Status " + str(status))
+                FFmpeg.video_from_frames(datum_frames, 4, datum_video)
 
             data.append({
                 "id": datum_id,

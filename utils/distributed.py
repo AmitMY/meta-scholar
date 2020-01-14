@@ -17,6 +17,9 @@ PROCESSES = []
 """
 docker run -d -p 5672:5672 rabbitmq
 docker run -d -p 6379:6379 redis
+
+pip install -U "celery[redis]"
+pip install flower
 """
 
 
@@ -68,6 +71,9 @@ class Distributed:
 
         self.spread(kill_others, servers)
 
+    def kill_slaves(self):
+        self.kill(servers=self.slaves)
+
     def spread(self, cmd: str, servers: list, sync: bool = True):
         for slave in servers:
             print("Spread", cmd, slave)
@@ -75,7 +81,7 @@ class Distributed:
 
     def spawn_workers(self):
         cmds = self.env_cmd + [self.celery_path + " -A " + self.module_path + " worker --loglevel=info --autoscale=4,1"]
-        self.kill(servers=self.slaves)
+        self.kill_slaves()
         self.spread(cmd=" && ".join(cmds), servers=self.slaves, sync=False)
 
         return self

@@ -1,0 +1,25 @@
+{
+  "name": "GooglePose",
+  "descriptions": "Adds 3d pose estimation for all hands detected in the video",
+  "website": "https://github.com/google/mediapipe/blob/master/mediapipe/docs/hand_tracking_mobile_gpu.md",
+  "join_on": "id",
+  "data": {
+    "id": {
+      "type": "text"
+    },
+    "hands": {
+      "type": "list",
+      "parameters": {
+        "type": "list",
+        "parameters": {
+          "type":  "pose_3d"
+        }
+      }
+    }
+  },
+  "versions": [
+    {
+      "version": "Mediapipe"
+    }
+  ]
+}

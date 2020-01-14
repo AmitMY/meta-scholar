@@ -25,6 +25,8 @@ def rmfile(path):
 
 def listdir(directory, full=True):
     files = [f for f in os.listdir(directory) if isfile(join(directory, f))]
+    files = list(sorted(files))
+
     if full:
         files = [join(directory, f) for f in files]
     return files

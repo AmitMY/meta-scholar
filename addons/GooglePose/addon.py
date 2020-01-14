@@ -1,38 +1,32 @@
 from os import path
 import os
 from os.path import exists
-from urllib.request import URLopener
 
 from jsonlines import jsonlines
 from tqdm import tqdm
 
-from addons.OpenPose.pose_util import get_directory_person, compress_frames
+from addons.GooglePose.pose_util import get_directory_hands
+from utils.dataset import load
 from utils.distributed_nlp_cluster import distributed
 from utils.docker import Docker
 from utils.file_system import makedir
-from utils.gpu import get_empty_gpu
 
-distributed.module_path = "addons.OpenPose.addon"
+distributed.module_path = "addons.GooglePose.addon"
 app = distributed.app  # Must declare the app in the root level
 
-DOCKER_NAME = "openpose"
+DOCKER_NAME = "google-pose"
 
 
 def clean_dockers():
     distributed.spread(Docker.kill_cmd(DOCKER_NAME), distributed.slaves)
 
 
-@app.task(name="OpenPose_pose_video")
+@app.task(name="GooglePose_pose_video")
 def pose_video(datum):
     if not exists(datum['video']):
-        try:
-            URLopener().retrieve(datum["video_url"], datum["video"])
-        except Exception as e:
-            makedir(datum["pose_dir"]) # Empty directory
+        raise Exception("Video doesn't exist")
 
     if not exists(datum["pose_dir"]):
-        gpu = get_empty_gpu()
-
         # Create Container
         container_id = Docker.create_container(DOCKER_NAME, "-it -v " + datum["video"] + ":/video.mp4")
 
@@ -40,26 +34,20 @@ def pose_video(datum):
             Docker.remove_container(container_id)
 
         try:
-            # Start Container
-            Docker.start_container(container_id)
-
-            cmd = "./build/examples/openpose/openpose.bin --video /video.mp4 --model_pose BODY_25 --display 0 --render_pose 0 --write_json /out/ --hand --face --num_gpu 1 "
-            cmd += " --num_gpu_start " + str(gpu)
-            Docker.exec_container(container_id, "bash -c 'cd /openpose && " + cmd + "'")
-
-            # Copy files
-            Docker.cp_container_directory(container_id, datum["pose_dir"], "/out/")
+            Docker.start_container(container_id)  # Start Container
+            Docker.exec_container(container_id, "python /api/pose_video.py")  # Pose video
+            Docker.cp_container_directory(container_id, datum["pose_dir"], "/out/")  # Copy files
+            remove_container() # Remove container
         except Exception as e:
-            remove_container()
+            remove_container() # Remove container
             raise e
-        finally:
-            remove_container()
+
 
     return True
 
 
 def download(version, directory: str, dataset: list):
-    if version["version"] != "BODY_25":
+    if version["version"] != "Mediapipe":
         raise ValueError("Running this addon version is not implemented")
 
     poses_dir = path.join(directory, "poses")
@@ -67,6 +55,7 @@ def download(version, directory: str, dataset: list):
 
     Docker.verify_image_exists(DOCKER_NAME)
 
+    should_cleanup = False
     while True:
         existing = {path.join(poses_dir, di) for di in os.listdir(poses_dir)}
         missing_data = []
@@ -79,13 +68,22 @@ def download(version, directory: str, dataset: list):
         if len(missing_data) == 0:
             break
 
+        print(missing_data)
+
+        should_cleanup = True
         print("Done", len(dataset) - len(missing_data), "/", len(dataset), "tasks")
+
+        # should_cleanup = False
+        # for datum in tqdm(missing_data):
+        #     pose_video(datum)
 
         distributed.clear_tasks()
         distributed.kill_slaves()
         clean_dockers()
         distributed.spawn_workers().flower()
         distributed.run(pose_video, missing_data[:50000])
+
+    if should_cleanup:
         distributed.kill_slaves()
         clean_dockers()
 
@@ -93,5 +91,11 @@ def download(version, directory: str, dataset: list):
         for datum in tqdm(dataset):
             writer.write({
                 "id": datum["id"],
-                "poses": compress_frames(get_directory_person(datum["pose_dir"]))
+                "poses": get_directory_hands(datum["pose_dir"])
             })
+
+
+if __name__ == "__main__":
+    load("ChicagoFSWild", version="ChicagoFSWild", addons=[{"name": "GooglePose"}])
+    # load("SLCrawl", version="SpreadTheSign", addons=[{"name": "GooglePose"}])
+    # load('SLCrawl', version='SpreadTheSign', addons=[{"name": "OpenPose"}, {"name": "GooglePose"}])

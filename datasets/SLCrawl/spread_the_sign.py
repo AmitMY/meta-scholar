@@ -13,6 +13,7 @@ from urllib.request import urlopen, Request
 from tqdm import tqdm
 
 # Requests Cache
+from utils.dataset import load
 from utils.file_system import makedir
 
 reqs_cache = {}
@@ -133,3 +134,6 @@ def download_SpreadTheSign(directory):
         json.dump(data, open(data_index_path, "w"), indent=2)
 
     return data
+
+if __name__ == "__main__":
+    load("SLCrawl", version="SpreadTheSign", addons=[{"name": "OpenPose"}])

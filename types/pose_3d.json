@@ -1,0 +1,19 @@
+{
+  "type": "object",
+  "parameters": {
+    "any": {
+      "type": "list",
+      "parameters": {
+        "x": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        },
+        "z": {
+          "type": "number"
+        }
+      }
+    }
+  }
+}
